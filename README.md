@@ -1,2 +1,2 @@
 # cmf-root
-the files in ThinkCMF root dir!
+The files in ThinkCMF root dir!
