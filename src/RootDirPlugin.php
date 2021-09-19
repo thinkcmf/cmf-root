@@ -10,8 +10,6 @@ class RootDirPlugin implements PluginInterface
 {
     public function activate(Composer $composer, IOInterface $io)
     {
-        print_r($composer);
-
         print_r($composer->getInstallationManager()->getInstallPath($composer->getPackage()));
 
         echo "RootDirPlugin activate\n";
