@@ -14,7 +14,7 @@ class RootDirPlugin implements PluginInterface
         echo "\n";
         echo $composer->getConfig()->get('vendor-dir');
 
-        echo "\nRootDirPlugin activate\n";
+        echo "\nRootDirPlugin activate 1\n";
     }
 
     public function deactivate(Composer $composer, IOInterface $io)
