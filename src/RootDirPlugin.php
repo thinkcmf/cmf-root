@@ -12,7 +12,15 @@ class RootDirPlugin implements PluginInterface
     {
         print_r($composer->getPackage());
         echo "\n";
-        echo $composer->getConfig()->get('vendor-dir');
+        $vendorDir = $composer->getConfig()->get('vendor-dir');
+
+        $cmfRootDir = dirname($vendorDir) . DIRECTORY_SEPARATOR;
+
+        $rootDir = $vendorDir . DIRECTORY_SEPARATOR . 'thinkcmf' . DIRECTORY_SEPARATOR . 'cmf-root' . DIRECTORY_SEPARATOR . 'root' . DIRECTORY_SEPARATOR;
+
+        $content = file_get_contents("{$rootDir}test.txt");
+
+        file_put_contents("{$cmfRootDir}test.txt", $content);
 
         echo "\nRootDirPlugin activate 1\n";
     }
