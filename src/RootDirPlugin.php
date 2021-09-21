@@ -13,9 +13,11 @@ class RootDirPlugin implements PluginInterface
         $vendorDir  = $composer->getConfig()->get('vendor-dir');
         $cmfRootDir = dirname($vendorDir) . DIRECTORY_SEPARATOR;
         $rootDir    = $vendorDir . DIRECTORY_SEPARATOR . 'thinkcmf' . DIRECTORY_SEPARATOR . 'cmf-root' . DIRECTORY_SEPARATOR . 'root' . DIRECTORY_SEPARATOR;
-        $this->copyDir($rootDir, $cmfRootDir);
-
-        echo "copy done\n";
+        if (is_dir($rootDir)) {
+            $this->copyDir($rootDir, $cmfRootDir);
+            echo "copy done\n";
+            $this->deleteDir($rootDir);
+        }
     }
 
     private function copyDir($strSrcDir, $strDstDir)
@@ -44,6 +46,24 @@ class RootDirPlugin implements PluginInterface
         }
         closedir($dir);
         return true;
+    }
+
+    private function deleteDir($dir)
+    {
+        if (rmdir($dir) == false && is_dir($dir)) {
+            if ($dp = opendir($dir)) {
+                while (($file = readdir($dp)) != false) {
+                    if (is_dir($file) && $file != '.' && $file != '..') {
+                        $this->deleteDir($file);
+                    } else {
+                        unlink($file);
+                    }
+                }
+                closedir($dp);
+            } else {
+                echo 'Not permission' . "\n";
+            }
+        }
     }
 
     public function deactivate(Composer $composer, IOInterface $io)
