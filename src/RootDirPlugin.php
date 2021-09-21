@@ -51,7 +51,7 @@ class RootDirPlugin implements PluginInterface
 
     private function deleteDir($dir)
     {
-        if (rmdir($dir) == false && is_dir($dir)) {
+        if (is_dir($dir)) {
             if ($dp = opendir($dir)) {
                 while (($file = readdir($dp)) != false) {
                     if (is_dir($file) && $file != '.' && $file != '..') {
@@ -64,6 +64,7 @@ class RootDirPlugin implements PluginInterface
             } else {
                 echo 'Not permission' . "\n";
             }
+
         }
     }
 
