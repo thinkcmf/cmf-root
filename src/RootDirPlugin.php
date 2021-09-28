@@ -16,6 +16,7 @@ class RootDirPlugin implements PluginInterface
         if (is_dir($rootDir)) {
             $this->copyDir($rootDir, $cmfRootDir);
             echo "copy done\n";
+            echo $rootDir."\n";
             $this->deleteDir($rootDir);
             echo "delete done\n";
         }
@@ -63,7 +64,7 @@ class RootDirPlugin implements PluginInterface
                         try {
                             unlink($file);
                         } catch (\Exception $e) {
-                            
+
                         }
                     }
                 }
