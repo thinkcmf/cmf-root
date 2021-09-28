@@ -54,8 +54,10 @@ class RootDirPlugin implements PluginInterface
         if (is_dir($dir)) {
             if ($dp = opendir($dir)) {
                 while (($file = readdir($dp)) != false) {
-                    if (is_dir($file) && $file != '.' && $file != '..') {
-                        $this->deleteDir($file);
+                    if (is_dir($file)) {
+                        if ($file != '.' && $file != '..') {
+                            $this->deleteDir($file);
+                        }
                     } else {
                         unlink($file);
                     }
