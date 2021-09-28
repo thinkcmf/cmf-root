@@ -72,9 +72,11 @@ class RootDirPlugin implements PluginInterface
                             }
                         }
                     }
-
                 }
-                closedir($dp);
+                if (readdir($dp) == false) {
+                    closedir($dp);
+                    rmdir($dir);
+                }
             } else {
                 echo 'Not permission' . "\n";
             }
