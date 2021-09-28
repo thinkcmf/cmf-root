@@ -66,7 +66,7 @@ class RootDirPlugin implements PluginInterface
                         } else {
                             try {
                                 echo $file . "\n";
-                                //unlink($file);
+                                unlink($file);
                             } catch (\Exception $e) {
 
                             }
