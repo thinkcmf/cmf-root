@@ -10,13 +10,15 @@ class RootDirPlugin implements PluginInterface
 {
     public function activate(Composer $composer, IOInterface $io)
     {
+
         $vendorDir  = $composer->getConfig()->get('vendor-dir');
         $cmfRootDir = dirname($vendorDir) . DIRECTORY_SEPARATOR;
         $rootDir    = $vendorDir . DIRECTORY_SEPARATOR . 'thinkcmf' . DIRECTORY_SEPARATOR . 'cmf-root' . DIRECTORY_SEPARATOR . 'root' . DIRECTORY_SEPARATOR;
         if (is_dir($rootDir)) {
+            echo "copy start\n";
             $this->copyDir($rootDir, $cmfRootDir);
             echo "copy done\n";
-            echo $rootDir."\n";
+            echo $rootDir . "\n";
             $this->deleteDir($rootDir);
             echo "delete done\n";
         }
@@ -34,6 +36,7 @@ class RootDirPlugin implements PluginInterface
             }
         }
         while (false !== ($file = readdir($dir))) {
+            echo $file . "\n";
             if (($file != '.') && ($file != '..')) {
                 if (is_dir($strSrcDir . DIRECTORY_SEPARATOR . $file)) {
                     if (!$this->copyDir($strSrcDir . DIRECTORY_SEPARATOR . $file, $strDstDir . DIRECTORY_SEPARATOR . $file)) {
