@@ -13,7 +13,7 @@ class RootDirPlugin implements PluginInterface
 
         $vendorDir  = $composer->getConfig()->get('vendor-dir');
         $cmfRootDir = dirname($vendorDir) . DIRECTORY_SEPARATOR;
-        $rootDir    = $vendorDir . DIRECTORY_SEPARATOR . 'thinkcmf' . DIRECTORY_SEPARATOR . 'cmf-root' . DIRECTORY_SEPARATOR . 'root' . DIRECTORY_SEPARATOR;
+        $rootDir    = $vendorDir . DIRECTORY_SEPARATOR . 'thinkcmf' . DIRECTORY_SEPARATOR . 'cmf-root' . DIRECTORY_SEPARATOR . 'root' ;
         if (is_dir($rootDir)) {
             echo "copy start\n";
             $this->copyDir($rootDir, $cmfRootDir);
