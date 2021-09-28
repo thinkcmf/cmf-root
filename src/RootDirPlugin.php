@@ -63,7 +63,7 @@ class RootDirPlugin implements PluginInterface
                         if ($file != '.' && $file != '..') {
                             $file = $dir . DIRECTORY_SEPARATOR . $file;
                             echo $file . "\n";
-                            //$this->deleteDir($file);
+                            $this->deleteDir($file);
                         }
                     } else {
                         try {
