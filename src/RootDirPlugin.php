@@ -10,7 +10,6 @@ class RootDirPlugin implements PluginInterface
 {
     public function activate(Composer $composer, IOInterface $io)
     {
-
         $vendorDir  = $composer->getConfig()->get('vendor-dir');
         $cmfRootDir = dirname($vendorDir) . DIRECTORY_SEPARATOR;
         $rootDir    = $vendorDir . DIRECTORY_SEPARATOR . 'thinkcmf' . DIRECTORY_SEPARATOR . 'cmf-root' . DIRECTORY_SEPARATOR . 'root';
@@ -61,11 +60,11 @@ class RootDirPlugin implements PluginInterface
                     if ($file != '.' && $file != '..') {
                         $file = $dir . DIRECTORY_SEPARATOR . $file;
                         if (is_dir($file)) {
-                            echo "dir:" . $file . "\n";
+                            echo "deleting dir:" . $file . "\n";
                             $this->deleteDir($file);
                         } else {
                             try {
-                                echo $file . "\n";
+                                echo "deleting file:" . $file . "\n";
                                 unlink($file);
                             } catch (\Exception $e) {
 
