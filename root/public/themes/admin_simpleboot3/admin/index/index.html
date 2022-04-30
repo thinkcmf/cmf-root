@@ -60,8 +60,9 @@
             JS_ROOT: "static/js/"
         };
     </script>
+    <php>$submenus=$menus;</php>
+
     <php>
-        $submenus=$menus;
         if (!function_exists('getsubmenu')) {
             function getsubmenu($submenus){
 
