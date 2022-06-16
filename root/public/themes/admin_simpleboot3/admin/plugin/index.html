@@ -5,14 +5,14 @@
     <ul class="nav nav-tabs">
         <li class="active"><a href="{:url('Plugin/index')}">{:lang('ADMIN_PLUGIN_INDEX')}</a></li>
         <if condition="class_exists('\app\admin\controller\AppStoreController')">
-            <li><a href="{:url('AppStore/plugins')}">插件市场</a></li>
+            <li><a href="{:url('AppStore/plugins')}">{:lang('ADMIN_APPSTORE_PLUGINS')}</a></li>
         </if>
         <li>
             <a href="http://www.thinkcmf.com/faq.html?url=https://www.kancloud.cn/thinkcmf/faq/493510" target="_blank">插件离线安装<i
                     class="fa fa-question-circle"></i></a>
         </li>
         <li><a href="http://www.thinkcmf.com/topic/index/index/cat/9.html" target="_blank">插件交流</a></li>
-        <li><a href="https://www.kancloud.cn/thinkcmf/doc5_1/957872" target="_blank">插件文档</a></li>
+        <li><a href="https://www.thinkcmf.com/docs/cmf6/#/%E6%A8%A1%E6%9D%BF" target="_blank">插件文档</a></li>
     </ul>
     <form method="post" class="js-ajax-form margin-top-20">
         <php>
@@ -21,13 +21,13 @@
         <table class="table table-hover table-bordered">
             <thead>
             <tr>
-                <th>插件名称</th>
-                <th>插件标识</th>
-                <th>描述</th>
-                <th>作者</th>
-                <th>版本号</th>
-                <th width="60">状态</th>
-                <th width="220">操作</th>
+                <th>{:lang('Name')}</th>
+                <th>{:lang('Key')}</th>
+                <th>{:lang('Description')}</th>
+                <th>{:lang('Author')}</th>
+                <th>{:lang('Version')}</th>
+                <th width="60">{:lang('Status')}</th>
+                <th width="220">{:lang('ACTIONS')}</th>
             </tr>
             </thead>
             <tbody>
@@ -42,14 +42,14 @@
                     <td>
                         <if condition="$vo['status']==3">
                             <a class="btn btn-xs btn-primary js-ajax-dialog-btn"
-                               href="{:url('plugin/install',array('name'=>$vo['name']))}"
-                               data-msg="确定安装该插件吗？">安装</a>
+                               href="{:url('Plugin/install',array('name'=>$vo['name']))}"
+                               data-msg="确定安装该插件吗？">{:lang('Install')}</a>
                             <else/>
                             <php>$config=json_decode($vo['config'],true);</php>
                             <if condition="!empty($config)">
                                 <empty name="config.custom_config">
                                     <a class="btn btn-xs btn-primary"
-                                       href="{:url('plugin/setting',array('id'=>$vo['id']))}">设置</a>
+                                       href="{:url('Plugin/setting',array('id'=>$vo['id']))}">设置</a>
                                     <else/>
                                     <a class="btn btn-xs btn-primary"
                                        href="{:cmf_plugin_url($vo['name'].'://AdminIndex/setting')}">设置</a>
@@ -66,22 +66,22 @@
                             </if>
 
                             <a class="btn btn-xs btn-success js-ajax-dialog-btn"
-                               href="{:url('plugin/update',array('name'=>$vo['name']))}"
-                               data-msg="确定更新该插件吗？">更新</a>
+                               href="{:url('Plugin/update',array('name'=>$vo['name']))}"
+                               data-msg="确定更新该插件吗？">{:lang('Update')}</a>
 
                             <if condition="$vo['status']==0">
                                 <a class="btn btn-xs btn-success js-ajax-dialog-btn"
-                                   href="{:url('plugin/toggle',array('id'=>$vo['id'],'enable'=>1))}"
-                                   data-msg="确定启用该插件吗？">启用</a>
+                                   href="{:url('Plugin/toggle',array('id'=>$vo['id'],'enable'=>1))}"
+                                   data-msg="确定启用该插件吗？">{:lang('Enable')}</a>
                                 <else/>
                                 <a class="btn btn-xs btn-warning js-ajax-dialog-btn"
-                                   href="{:url('plugin/toggle',array('id'=>$vo['id'],'disable'=>1))}"
-                                   data-msg="确定禁用该插件吗？">禁用</a>
+                                   href="{:url('Plugin/toggle',array('id'=>$vo['id'],'disable'=>1))}"
+                                   data-msg="确定禁用该插件吗？">{:lang('Disable')}</a>
                             </if>
 
                             <a class="btn btn-xs btn-danger js-ajax-dialog-btn"
-                               href="{:url('plugin/uninstall',array('id'=>$vo['id']))}"
-                               data-msg="确定卸载该插件吗？">卸载</a>
+                               href="{:url('Plugin/uninstall',array('id'=>$vo['id']))}"
+                               data-msg="确定卸载该插件吗？">{:lang('Uninstall')}</a>
                         </if>
                     </td>
                 </tr>
