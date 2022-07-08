@@ -1,6 +1,10 @@
 <include file="theme/functions"/>
 <include file="public@header"/>
 <style>
+    html, body {
+        overflow-x: hidden;
+    }
+
     .form-control-widget-title {
         border: none;
         padding: 0;
@@ -14,12 +18,24 @@
         outline: none;
         background: #fff;
     }
+
+    .widgets-group {
+        min-height: 40px;
+    }
+
+    .widgets-group .ui-sortable-placeholder {
+        background: #f9f9f9;
+        visibility: visible !important;
+    }
+
+    .widgets-group .ui-sortable-placeholder.ui-sortable-placeholder-disabled {
+        background: red;
+    }
 </style>
 </head>
 <body>
 <notempty name="has_file">
     <div class="wrap">
-
         <ul class="nav nav-tabs">
             <li class="active">
                 <a href="{:url('Theme/fileSetting',['file'=>$fileName,'theme'=>$theme,'tab'=>'widget'])}">
@@ -50,6 +66,37 @@
                 <a href="javascript:parent.openIframeLayer('{:url('admin/Link/index')}','友情链接管理')"
                    class="list-group-item">友情链接管理</a>
             </div>
+
+            <foreach name="files" item="file">
+                <notempty name="file['more']['widgets_blocks']">
+                    <foreach name="file['more']['widgets_blocks']" item="widgetsBlock" key="widgetsBlockName"
+                             index="index">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                {$widgetsBlock.title|default='无标题'}
+                            </div>
+                            <ul class="list-group widgets-group"
+                                data-file_id="{$file.id}"
+                                data-block_name="{$widgetsBlockName}">
+                                <notempty name="widgetsBlock.widgets">
+                                    <foreach name="widgetsBlock.widgets" item="widget">
+                                        <li class="list-group-item widgets-group-item"
+                                            data-file_id="{$file.id}"
+                                            data-id="{$key}"
+                                            data-title="设置">
+                                            {$widget.title|default='无标题'}
+                                            <a class="pull-right" onclick="doWidgetSetting(this)" href="javascript:;"><i class="fa fa-cog"></i></a>
+                                        </li>
+                                    </foreach>
+                                    <else/>
+                                    <!--                                    <li class="list-group-item">什么都没有~</li>-->
+                                </notempty>
+
+                            </ul>
+                        </div>
+                    </foreach>
+                </notempty>
+            </foreach>
 
             <notempty name="has_widget">
                 <foreach name="files" item="file">
@@ -102,7 +149,7 @@
 
     </div>
 
-<include file="theme/scripts"/>
+    <include file="theme/scripts"/>
     <script>
         parent.showDesignBtn();
     </script>

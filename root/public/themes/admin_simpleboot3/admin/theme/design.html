@@ -58,23 +58,8 @@
         font-size: 18px;
     }
 
-    #show-setting-panel {
-        top: 30px;
-        left: 30px;
-    }
-
-    #update-theme-btn {
-        top: 30px;
-        right: 30px;
-    }
-
     #update-theme-btn:focus {
         outline: none;
-    }
-
-    #show-setting-panel:hover {
-        background: #eee;
-        border-color: #ddd;
     }
 
     #think_page_trace {
@@ -117,18 +102,33 @@
         background: #fff;
     }
 
-    #simulator-pc-btn {
+    .design-btn:hover {
+        background: #eee;
+        border-color: #ddd;
+    }
+
+    #update-theme-btn {
+        top: 30px;
+        right: 30px;
+    }
+
+    #show-setting-panel {
         top: 100px;
         right: 30px;
     }
 
-    #simulator-pad-btn {
+    #simulator-pc-btn {
         top: 170px;
         right: 30px;
     }
 
-    #simulator-mobile-btn {
+    #simulator-pad-btn {
         top: 240px;
+        right: 30px;
+    }
+
+    #simulator-mobile-btn {
+        top: 310px;
         right: 30px;
     }
 
@@ -159,7 +159,8 @@
         <a id="save-btn" class="btn btn-primary">保存</a>
     </div>
 </div>
-<iframe src="__ROOT__/?_design_theme={:input('param.theme')}" frameborder="0" id="simulator" class="simulator-pc"></iframe>
+<iframe src="__ROOT__/?_design_theme={:input('param.theme')}" frameborder="0" id="simulator"
+        class="simulator-pc"></iframe>
 <script src="__STATIC__/js/admin.js?v={$_static_version}"></script>
 <script>
     var simulator = $('#simulator').get(0).contentWindow;
@@ -219,9 +220,14 @@
         $('#show-setting-panel').hide();
     }
 
+    function settingIframeRefresh() {
+        $settingIframe.attr('src', "{:url('Theme/fileSetting')}?theme={:input('param.theme')}&file=" + encodeURIComponent(simulator._themeFile));
+    }
+
+
     function simulatorRefresh() {
         if (simulatorNeedRefresh) {
-            $settingIframe.attr('src', "{:url('Theme/fileSetting')}?theme={:input('param.theme')}&file=" + encodeURIComponent(simulator._themeFile));
+            settingIframeRefresh();
             $simulator.load(function () {
                 $(simulator.document).on('click', 'a', function () {
                     var target = $(this).attr('target');
