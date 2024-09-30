@@ -5,15 +5,16 @@
 </php>
 <foreach name="vars" item="var" key="varName">
     <fieldset>
-        <div class="form-group">
+        <div class="row mb-3">
             <present name="var.title">
-                <label class="control-label">
-                    {$var.title}
+                <label class="form-label">
+                    {:lang($var.title)}
                     <notempty name="var.rule.require">
                         <span class="form-required">*</span>
                     </notempty>
                 </label>
             </present>
+            <php>$placeholder=empty($var['placeholder'])?'':$var['placeholder'];</php>
             <switch name="var.type">
                 <case value="text">
                     <div class="controls">
@@ -21,18 +22,18 @@
                             <input type="text" name="{$inputName}[{$varName}_text_]" class="form-control"
                                    onclick="doSelectData(this)"
                                    data-source="{:base64_encode(json_encode($var['dataSource']))}"
-                                   data-title="请选择{$var.title}"
+                                   data-title="{:lang($var.title)}"
                                    value="{$vars[$varName]['valueText']|default=''}"
-                                   placeholder="{$var.placeholder|default=''}">
+                                   placeholder="{:lang($placeholder)}">
                             <input type="hidden" name="{$inputName}[{$varName}]" class="form-control"
                                    value="{$vars[$varName]['value']}">
                             <else/>
                             <input type="text" name="{$inputName}[{$varName}]" class="form-control"
                                    value="{$vars[$varName]['value']}"
-                                   placeholder="{$var.placeholder|default=''}">
+                                   placeholder="{:lang($placeholder)}">
                         </present>
                         <present name="var.tip">
-                            <p class="help-block">{$var.tip}</p>
+                            <div class="form-text">{:lang($var.tip)}</div>
                         </present>
                     </div>
                 </case>
@@ -40,9 +41,9 @@
                     <div class="controls">
                         <textarea name="{$inputName}[{$varName}]"
                                   class="form-control"
-                                  placeholder="{$var.placeholder|default=''}">{$vars[$varName]['value']}</textarea>
+                                  placeholder="{:lang($placeholder)}">{$vars[$varName]['value']}</textarea>
                         <present name="var.tip">
-                            <p class="help-block">{$var.tip}</p>
+                            <div class="form-text">{:lang($var.tip)}</div>
                         </present>
                     </div>
                 </case>
@@ -50,9 +51,9 @@
                     <div class="controls">
                         <input type="text" name="{$inputName}[{$varName}]" class="form-control js-bootstrap-date"
                                value="{$vars[$varName]['value']}"
-                               placeholder="{$var.placeholder|default=''}">
+                               placeholder="{:lang($placeholder)}">
                         <present name="var.tip">
-                            <p class="help-block">{$var.tip}</p>
+                            <div class="form-text">{:lang($var.tip)}</div>
                         </present>
                     </div>
                 </case>
@@ -60,9 +61,9 @@
                     <div class="controls">
                         <input type="text" name="{$inputName}[{$varName}]" class="form-control js-bootstrap-datetime"
                                value="{$vars[$varName]['value']}"
-                               placeholder="{$var.placeholder|default=''}">
+                               placeholder="{:lang($placeholder)}">
                         <present name="var.tip">
-                            <p class="help-block">{$var.tip}</p>
+                            <div class="form-text">{:lang($var.tip)}</div>
                         </present>
                     </div>
                 </case>
@@ -71,7 +72,7 @@
                         <input type="hidden" name="{$inputName}[{$varName}]" class="form-control"
                                value="{$vars[$varName]['value']}" id="js-{$widget}{$varName}-input">
                         <div>
-                            <a href="javascript:doUploadOneImage('图片上传','#js-{$widget}{$varName}-input');">
+                            <a href="javascript:doUploadOneImage('{:lang('Upload Image')}','#js-{$widget}{$varName}-input');">
                                 <if condition="empty($vars[$varName]['value'])">
                                     <img src="__TMPL__/public/assets/images/default-thumbnail.png"
                                          id="js-{$widget}{$varName}-input-preview"
@@ -87,12 +88,12 @@
                                 <button id="js-{$widget}{$varName}-button-remove"
                                         defaultImage="__TMPL__/public/assets/images/default-thumbnail.png"
                                         class="removeImage btn btn-sm" type="button"
-                                        onclick="removeImage('{$widget}{$varName}')">取消图片
+                                        onclick="removeImage('{$widget}{$varName}')">{:lang('Cancel')}
                                 </button>
                             </if>
                         </div>
                         <present name="var.tip">
-                            <p class="help-block">{$var.tip}</p>
+                            <div class="form-text">{:lang($var.tip)}</div>
                         </present>
                     </div>
                 </case>
@@ -100,9 +101,9 @@
                     <div class="controls">
                         <input type="number" name="{$inputName}[{$varName}]" class="form-control"
                                value="{$vars[$varName]['value']}"
-                               placeholder="{$var.placeholder|default=''}">
+                               placeholder="{:lang($placeholder)}">
                         <present name="var.tip">
-                            <p class="help-block">{$var.tip}</p>
+                            <div class="form-text">{:lang($var.tip)}</div>
                         </present>
                     </div>
                 </case>
@@ -110,13 +111,13 @@
                     <div class="controls">
                         <input type="text" name="{$inputName}[{$varName}_text_]" class="form-control"
                                onclick="doSelectLocation(this)"
-                               data-title="请选择{$var.title}"
+                               data-title="{:lang($var.title)}"
                                value="{$vars[$varName]['valueText']|default=''}"
-                               placeholder="{$var.placeholder|default=''}">
+                               placeholder="{:lang($placeholder)}">
                         <input type="hidden" name="{$inputName}[{$varName}]" class="form-control"
                                value="{$vars[$varName]['value']}">
                         <present name="var.tip">
-                            <p class="help-block">{$var.tip}</p>
+                            <div class="form-text">{:lang($var.tip)}</div>
                         </present>
                     </div>
                 </case>
@@ -125,12 +126,12 @@
                         <div class="input-group">
                             <input type="text" name="{$inputName}[{$varName}]" class="form-control"
                                    value="{$vars[$varName]['value']}" id="js-{$widget}{$varName}-input-file"
-                                   placeholder="{$var.placeholder|default=''}">
+                                   placeholder="{:lang($placeholder)}">
                             <span class="input-group-addon"> <a
-                                    href="javascript:doUploadOne('图片上传','#js-{$widget}{$varName}-input-file','file');">上传</a></span>
+                                    href="javascript:doUploadOne('{:lang('Upload Image')}','#js-{$widget}{$varName}-input-file','file');">{:lang('Upload Image')}</a></span>
                         </div>
                         <present name="var.tip">
-                            <p class="help-block">{$var.tip}</p>
+                            <div class="form-text">{:lang($var.tip)}</div>
                         </present>
                     </div>
                 </case>
@@ -138,9 +139,9 @@
                     <div class="controls">
                         <input type="text" name="{$inputName}[{$varName}]" class="form-control js-color"
                                value="{$vars[$varName]['value']}" id="js-color-{$widget}{$varName}"
-                               placeholder="{$var.placeholder|default=''}">
+                               placeholder="{:lang($placeholder)}">
                         <present name="var.tip">
-                            <p class="help-block">{$var.tip}</p>
+                            <div class="form-text">{:lang($var.tip)}</div>
                         </present>
                     </div>
                 </case>
@@ -148,16 +149,16 @@
                 <case value="array">
                     <div class="controls">
                         <php>
-                            $arrayValueText=is_array($var['value'])&&count($var['value'])>0?count($var['value']).'条数据,点击添加更多...':'';
+                            $arrayValueText=is_array($var['value'])&&count($var['value'])>0?lang('x pieces of data, click to add more',['count'=>count($var['value'])]):'';
                         </php>
-                        <textarea class="form-control" placeholder="点击添加数据"
+                        <textarea class="form-control" placeholder=""
                                   onclick="doEditArrayData(this)"
                                   data-var="{$varName}"
                                   data-widget="{$widget}"
-                                  data-title="编辑{$var.title}"
+                                  data-title="{$var.title}"
                                   data-file_id="{$file_id}">{$arrayValueText}</textarea>
                         <present name="var.tip">
-                            <p class="help-block">{$var.tip}</p>
+                            <div class="form-text">{:lang($var.tip)}</div>
                         </present>
                     </div>
                 </case>
@@ -170,12 +171,12 @@
                         <select name="{$inputName}[{$varName}]" class="form-control">
                             <foreach name="options" item="optionItem" key="optionKey">
                                 <php>$optionSelected=$optionKey==$value?"selected":"";</php>
-                                <option value="{$optionKey}" {$optionSelected}>{$optionItem}
+                                <option value="{$optionKey}" {$optionSelected}>{:lang($optionItem)}
                                 </option>
                             </foreach>
                         </select>
                         <present name="var.tip">
-                            <p class="help-block">{$var.tip}</p>
+                            <div class="form-text">{:lang($var.tip)}</div>
                         </present>
                     </div>
                 </case>
@@ -184,7 +185,7 @@
                         <input type="text" name="{$inputName}[{$varName}]" class="form-control"
                                value="{$vars[$varName]['value']}">
                         <present name="var.tip">
-                            <p class="help-block">{$var.tip}</p>
+                            <div class="form-text">{:lang($var.tip)}</div>
                         </present>
                     </div>
                 </case>
@@ -194,7 +195,7 @@
                             <script type="text/plain" class="rich_text_content" name="{$inputName}[{$varName}]">{$vars[$varName]['value']}</script>
                         </div>
                         <present name="var.tip">
-                            <p class="help-block">{$var.tip}</p>
+                            <div class="form-text">{:lang($var.tip)}</div>
                         </present>
                     </div>
                 </case>

@@ -1,0 +1,84 @@
+<extend name="public@base5"/>
+<block name="main">
+    <div class="wrap js-check-wrap">
+        <ul class="nav nav-tabs">
+            <li class="nav-item"><a class="nav-link active">{:lang('ADMIN_SETTING_ADMIN')}</a></li>
+        </ul>
+        <form class="js-ajax-form margin-top-20" role="form" action="admin/setting/admin" method="PUT">
+            <div class="row mb-3">
+                <label for="input-site-name" class="col-sm-2 col-form-label text-sm-end">{:lang('Admin Name')}</label>
+                <div class="col-md-8 col-sm-10">
+                    <input type="text" class="form-control" id="input-site-name"
+                           name="admin_settings[admin_name]"
+                           value="{$admin_settings.admin_name|default=''}">
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="input-admin_url_password" class="col-sm-2 col-form-label text-sm-end">
+                    {:lang('Admin URL Password')}
+                    <a href="http://www.thinkcmf.com/faq.html?url=https://www.kancloud.cn/thinkcmf/faq/493509"
+                       title="{:lang('View Help Manual')}"
+                       data-toggle="tooltip"
+                       target="_blank"><i class="fa fa-question-circle"></i></a>
+                </label>
+                <div class="col-md-8 col-sm-10">
+                    <input type="text" class="form-control" id="input-admin_url_password"
+                           name="admin_settings[admin_password]"
+                           value="{$admin_settings.admin_password|default=''}"/>
+                    <div class="form-text">{:lang('ADMIN_URL_PASSWORD_HELP_TEXT')}</div>
+                    <div class="form-text" style="color: red;">
+                        {:lang('ADMIN_URL_PASSWORD_SAFE_TIP_TEXT')}
+                    </div>
+                    <php>
+                        $root=cmf_get_root();
+                        $root=empty($root)?'':'/'.$root;
+                        $site_domain = cmf_get_domain().$root;
+                    </php>
+                    <div class="form-text">
+                        {:lang('Admin login address')}: <span id="js-site-admin-url">{$site_domain}/{$admin_settings.admin_password|default='admin'}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="input-site_admin_theme" class="col-sm-2 col-form-label text-sm-end">{:lang('WEBSITE_ADMIN_THEME')}</label>
+                <div class="col-md-8 col-sm-10">
+                    <php>
+                        $site_admin_theme=empty($admin_settings['admin_theme'])?'':$admin_settings['admin_theme'];
+                    </php>
+                    <select class="form-control" name="admin_settings[admin_theme]"
+                            id="input-site_admin_theme">
+                        <foreach name="admin_themes" item="vo">
+                            <php>$admin_theme_selected = $site_admin_theme == $vo ? "selected" : "";
+                            </php>
+                            <option value="{$vo}" {$admin_theme_selected}>{$vo}</option>
+                        </foreach>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="input-site_adminstyle" class="col-sm-2 col-form-label text-sm-end">{:lang('WEBSITE_ADMIN_THEME_STYLE')}</label>
+                <div class="col-md-8 col-sm-10">
+                    <php>
+                        $site_admin_style=empty($admin_settings['admin_style'])?cmf_get_admin_style('arcoadmin'):$admin_settings['admin_style'];
+                    </php>
+                    <select class="form-control" name="admin_settings[admin_style]"
+                            id="input-site_adminstyle">
+                        <foreach name="admin_styles" item="vo">
+                            <php>$admin_style_selected = $site_admin_style == $vo ? "selected" : "";
+                            </php>
+                            <option value="{$vo}" {$admin_style_selected}>{$vo}</option>
+                        </foreach>
+                    </select>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <div class="offset-md-2 col-sm-10">
+                    <button type="submit" class="btn btn-primary js-ajax-submit" data-refresh="1">
+                        <i class="fa fa-save fa-fw"></i> {:lang('SAVE')}
+                    </button>
+                </div>
+            </div>
+        </form>
+
+    </div>
+</block>
